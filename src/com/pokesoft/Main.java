@@ -19,7 +19,7 @@ public class Main {
         driver.get(baseUrl);
 
         String text;
-        By body = new By.ByClassName("o-superSportRow__body");
+        By body = new By.ByClassName("o-superSportRow");
         text = driver.findElement(body).getText();
         WebElement e = driver.findElement(body);
         System.out.println(text);
