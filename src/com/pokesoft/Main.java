@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class Main {
@@ -19,10 +20,11 @@ public class Main {
         driver.get(baseUrl);
 
         String text;
-        By body = new By.ByClassName("o-superSportRow");
-        text = driver.findElement(body).getText();
-        WebElement e = driver.findElement(body);
-        System.out.println(text);
+        By sportClass = new By.ByClassName("o-superSportRow");
+        ArrayList<WebElement> webElements = (ArrayList<WebElement>) driver.findElements(sportClass);
+        for (WebElement element : webElements) {
+            System.out.println(element.getText());
+        }
 
         driver.close();
 
