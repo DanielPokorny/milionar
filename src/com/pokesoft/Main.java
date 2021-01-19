@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 
 public class Main {
@@ -17,12 +19,13 @@ public class Main {
         String baseUrl = "https://www.tipsport.cz/kurzy/zitra?limit=125";
 
         driver.get(baseUrl);
-
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         String text;
-        By body = new By.ByClassName("o-superSportRow");
-        text = driver.findElement(body).getText();
-        WebElement e = driver.findElement(body);
-        System.out.println(text);
+        By sportClass = new By.ByClassName("o-superSportRow");
+        ArrayList<WebElement> webElements = (ArrayList<WebElement>) driver.findElements(sportClass);
+        for (WebElement element : webElements) {
+            System.out.println(element.getText());
+        }
 
         driver.close();
 

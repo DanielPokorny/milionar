@@ -8,7 +8,9 @@
       <root url="jar://$PROJECT_DIR$/lib/selenium/libs/okhttp-3.11.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/lib/selenium/libs/okio-1.14.0.jar!/" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="file://$PROJECT_DIR$/lib/selenium-javadoc/www.selenium.dev/selenium/docs/api/java" />
+    </JAVADOC>
     <SOURCES />
   </library>
 </component>
