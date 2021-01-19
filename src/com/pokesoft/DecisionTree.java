@@ -1,5 +1,7 @@
 package com.pokesoft;
 
+import java.util.ArrayList;
+
 public class DecisionTree {
     private class Pair {
         private float value;
@@ -26,7 +28,10 @@ public class DecisionTree {
             this.category = category;
         }
     }
-    public void addData(float value, String category){
 
+    private ArrayList<Pair> data = new ArrayList<>();
+
+    public void addData(float value, String category){
+        data.add(new Pair(value, category));
     }
 }
