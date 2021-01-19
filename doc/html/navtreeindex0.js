@@ -1,0 +1,22 @@
+var NAVTREEINDEX0 =
+{
+".html":[0,0,0],
+".html":[0,0,0,0],
+"annotated.html":[0,0],
+"classcom_1_1pokesoft_1_1DecisionTree.html":[0,0,0,0,0],
+"classcom_1_1pokesoft_1_1DecisionTree.html#a6d467401fce6aa81930a60a44ae91cdf":[0,0,0,0,0,1],
+"classcom_1_1pokesoft_1_1DecisionTree.html#ad676e733ca90b79c562d88e0610d7e34":[0,0,0,0,0,2],
+"classcom_1_1pokesoft_1_1DecisionTree_1_1Pair.html":[0,0,0,0,0,0],
+"classcom_1_1pokesoft_1_1DecisionTree_1_1Pair.html#a00d00bce4c467af54078357491d48605":[0,0,0,0,0,0,3],
+"classcom_1_1pokesoft_1_1DecisionTree_1_1Pair.html#a0fa896bf6b96ef24c7309996518d1a0b":[0,0,0,0,0,0,6],
+"classcom_1_1pokesoft_1_1DecisionTree_1_1Pair.html#a551b391f256a5319a7ff6ae7ca0229e0":[0,0,0,0,0,0,0],
+"classcom_1_1pokesoft_1_1DecisionTree_1_1Pair.html#a60aecd76757446ad8f60959aa4d66dce":[0,0,0,0,0,0,5],
+"classcom_1_1pokesoft_1_1DecisionTree_1_1Pair.html#aa7900724832538886caf57bb63c7b79e":[0,0,0,0,0,0,1],
+"classcom_1_1pokesoft_1_1DecisionTree_1_1Pair.html#aa9fc9314b49ce1ef621b73ae8f4f5291":[0,0,0,0,0,0,2],
+"classcom_1_1pokesoft_1_1DecisionTree_1_1Pair.html#aeb04d3866742601a7aea1eb994a1d08e":[0,0,0,0,0,0,4],
+"classcom_1_1pokesoft_1_1Main.html":[0,0,0,0,1],
+"classcom_1_1pokesoft_1_1Main.html#a613513d438d42089931543e9752998c5":[0,0,0,0,1,0],
+"classes.html":[0,1],
+"index.html":[],
+"pages.html":[]
+};
