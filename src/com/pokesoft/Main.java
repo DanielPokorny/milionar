@@ -24,7 +24,11 @@ public class Main {
         By sportClass = new By.ByClassName("o-superSportRow");
         ArrayList<WebElement> webElements = (ArrayList<WebElement>) driver.findElements(sportClass);
         for (WebElement element : webElements) {
-            System.out.println(element.getText());
+            By sportBy = new By.ByClassName("o-superSportRow__header");
+            WebElement sportElement = element.findElement(sportBy);
+            String sport = sportElement.getText();
+            By leagueBy =
+            System.out.println(sportElement.getText());
         }
 
         driver.close();
