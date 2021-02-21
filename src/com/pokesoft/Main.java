@@ -38,11 +38,6 @@ public class Main {
             }
 
             System.out.println(zapasyElement.getText());
-
-
-/*            ArrayList<WebElement> competionsElements = element.
-            System.out.println(sportElement.getText());
-            driver.findElement(By.xpath("//div[contains(@class, 'value') and contains(@class, 'test')]"));*/
         }
 
         driver.close();
