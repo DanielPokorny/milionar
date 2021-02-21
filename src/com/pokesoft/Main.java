@@ -27,10 +27,22 @@ public class Main {
             By sportBy = new By.ByClassName("o-superSportRow__header");
             WebElement sportElement = element.findElement(sportBy);
             String sport = sportElement.getText();
-            By competitionBy = new By.ByClassName("o-competitionRow");
-            ArrayList<WebElement> competionsElements = element.
+
+            By zapasyBy = new By.ByClassName("o-superSportRow__body");
+            WebElement zapasyElement = element.findElement(zapasyBy);
+
+            By zapasNeboLigaBy = new By.ByXPath("//div[@class = 'o-competitionRow' or @class = 'o-matchRow']");
+            ArrayList<WebElement> zapasyAligyElements = (ArrayList<WebElement>) zapasyElement.findElements(zapasNeboLigaBy);
+            for (WebElement zalElement : zapasyAligyElements) {
+                System.out.println(zalElement.getText());
+            }
+
+            System.out.println(zapasyElement.getText());
+
+
+/*            ArrayList<WebElement> competionsElements = element.
             System.out.println(sportElement.getText());
-            driver.findElement(By.xpath("//div[contains(@class, 'value') and contains(@class, 'test')]"));
+            driver.findElement(By.xpath("//div[contains(@class, 'value') and contains(@class, 'test')]"));*/
         }
 
         driver.close();
