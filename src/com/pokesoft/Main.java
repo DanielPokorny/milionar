@@ -34,9 +34,12 @@ public class Main {
             By zapasNeboLigaBy = new By.ByXPath("//div[@class = 'o-competitionRow' or @class = 'o-matchRow']");
             ArrayList<WebElement> zapasyAligyElements = (ArrayList<WebElement>) zapasyElement.findElements(zapasNeboLigaBy);
             for (WebElement zalElement : zapasyAligyElements) {
-                System.out.println(zalElement.getText());
+                String classString = zalElement.getAttribute("class");
+                if (classString.equals("o-competitionRow")) {
+                }
+                if (classString.equals("o-matchRow")) {
+                }
             }
-
             System.out.println(zapasyElement.getText());
         }
 
