@@ -38,6 +38,10 @@ public class Main {
                 if (classString.equals("o-competitionRow")) {
                 }
                 if (classString.equals("o-matchRow")) {
+                    String zapas = zalElement.findElement(new By.ByClassName("o-matchRow__leftSide")).getText();
+                    System.out.println(zapas);
+
+                    WebElement kurzyElement = zalElement.findElement(new By.ByClassName("m-matchRowOdds m-matchRowOdds--countOpp5"));
                 }
             }
             System.out.println(zapasyElement.getText());
