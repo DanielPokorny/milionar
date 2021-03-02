@@ -36,6 +36,8 @@ public class Main {
             for (WebElement zalElement : zapasyAligyElements) {
                 String classString = zalElement.getAttribute("class");
                 if (classString.equals("o-competitionRow")) {
+                    String liga = zalElement.findElement(new By.ByClassName("o-competitionRow__left")).getText();
+                    System.out.println(liga);
                 }
                 if (classString.equals("o-matchRow")) {
                     String zapas = zalElement.findElement(new By.ByClassName("o-matchRow__leftSide")).getText();
