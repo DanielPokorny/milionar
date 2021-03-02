@@ -41,7 +41,11 @@ public class Main {
                     String zapas = zalElement.findElement(new By.ByClassName("o-matchRow__leftSide")).getText();
                     System.out.println(zapas);
 
-                    WebElement kurzyElement = zalElement.findElement(new By.ByClassName("m-matchRowOdds m-matchRowOdds--countOpp5"));
+                    WebElement kurzyElement = zalElement.findElement(new By.ByClassName("o-matchRow__rightSideInner"));
+                    ArrayList<WebElement> kurzyElementList = (ArrayList<WebElement>) kurzyElement.findElements(new By.ByClassName("btnRate"));
+                    for(WebElement kurz : kurzyElementList) {
+                        System.out.println(kurz.getText());
+                    }
                 }
             }
             System.out.println(zapasyElement.getText());
