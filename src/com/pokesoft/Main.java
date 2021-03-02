@@ -40,10 +40,14 @@ public class Main {
                     System.out.println(liga);
                 }
                 if (classString.equals("o-matchRow")) {
-                    String zapas = zalElement.findElement(new By.ByClassName("o-matchRow__leftSide")).getText();
-                    System.out.println(zapas);
+                    Zapas zapas = new Zapas();
+                    String zapasJmeno = zalElement.findElement(new By.ByClassName("o-matchRow__leftSide")).getText();
+
+                    System.out.println(zapasJmeno);
+                    zapas.setZapas(zapasJmeno);
 
                     WebElement kurzyElement = zalElement.findElement(new By.ByClassName("o-matchRow__rightSideInner"));
+
                     ArrayList<WebElement> kurzyElementList = (ArrayList<WebElement>) kurzyElement.findElements(new By.ByClassName("btnRate"));
                     for(WebElement kurz : kurzyElementList) {
                         System.out.println(kurz.getText());
