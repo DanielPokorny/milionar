@@ -49,8 +49,22 @@ public class Main {
                     WebElement kurzyElement = zalElement.findElement(new By.ByClassName("o-matchRow__rightSideInner"));
 
                     ArrayList<WebElement> kurzyElementList = (ArrayList<WebElement>) kurzyElement.findElements(new By.ByClassName("btnRate"));
-                    for(WebElement kurz : kurzyElementList) {
-                        System.out.println(kurz.getText());
+                    if(kurzyElementList.size() == 5) {
+                        ArrayList<Float> kurzyList = new ArrayList<>();
+                        for(WebElement kurz : kurzyElementList) {
+                            Float k = 1F;
+                            try {
+                                k = Float.parseFloat(kurz.getText());
+                            } catch (Exception e) {
+
+                            }
+                            kurzyList.add(k);
+                        }
+                        zapas.setKurz1(kurzyList.get(0));
+                        zapas.setKurz10(kurzyList.get(1));
+                        zapas.setKurz0(kurzyList.get(2));
+                        zapas.setKurz02(kurzyList.get(3));
+                        zapas.setKurz2(kurzyList.get(4));
                     }
                 }
             }
