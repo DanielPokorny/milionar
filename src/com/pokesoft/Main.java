@@ -35,8 +35,9 @@ public class Main {
             ArrayList<WebElement> zapasyAligyElements = (ArrayList<WebElement>) zapasyElement.findElements(zapasNeboLigaBy);
             for (WebElement zalElement : zapasyAligyElements) {
                 String classString = zalElement.getAttribute("class");
+                String liga = "";
                 if (classString.equals("o-competitionRow")) {
-                    String liga = zalElement.findElement(new By.ByClassName("o-competitionRow__left")).getText();
+                    liga = zalElement.findElement(new By.ByClassName("o-competitionRow__left")).getText();
                     System.out.println(liga);
                 }
                 if (classString.equals("o-matchRow")) {
@@ -47,6 +48,7 @@ public class Main {
                     zapas.setZapas(zapasJmeno);
 
                     WebElement kurzyElement = zalElement.findElement(new By.ByClassName("o-matchRow__rightSideInner"));
+                    String datum = kurzyElement.findElement(new By.ByClassName("o-matchRow__dateClosed")).getText();
 
                     ArrayList<WebElement> kurzyElementList = (ArrayList<WebElement>) kurzyElement.findElements(new By.ByClassName("btnRate"));
                     if(kurzyElementList.size() == 5) {
@@ -65,6 +67,10 @@ public class Main {
                         zapas.setKurz0(kurzyList.get(2));
                         zapas.setKurz02(kurzyList.get(3));
                         zapas.setKurz2(kurzyList.get(4));
+
+                        zapas.setDatum(datum);
+                        zapas.setLiga(liga);
+                        zapas.setSport(sport);
                     }
                 }
             }
