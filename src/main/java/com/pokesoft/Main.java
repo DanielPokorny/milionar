@@ -7,6 +7,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
 
@@ -16,25 +17,27 @@ public class Main {
         System.setProperty("webdriver.gecko.driver", "/home/daniel/IdeaProjects/milionar/lib/selenium/geckodriver");
         WebDriver driver = new FirefoxDriver();
 
-        String baseUrl = "https://www.tipsport.cz/kurzy/zitra?limit=125";
+        String baseUrl = "https://www.tipsport.cz/kurzy/zitra?limit=500";
 
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        String text;
-        ArrayList<Zapas> zapasy = new ArrayList<>();
+
+        ArrayList<com.pokesoft.Zapas> zapasy = new ArrayList<>();
         By sportClass = new By.ByClassName("o-superSportRow");
         ArrayList<WebElement> webElements = (ArrayList<WebElement>) driver.findElements(sportClass);
         for (WebElement element : webElements) {
+            String e = element.getText();
             zapasy.addAll(parseSportElement(element));
             System.out.println(zapasy);
         }
 
-        driver.close();
 
+        driver.close();
     }
 
-    public static ArrayList<Zapas> parseSportElement(WebElement element) {
-        ArrayList<Zapas> returnValue = new ArrayList<>();
+    public static Collection<? extends com.pokesoft.Zapas> parseSportElement(WebElement element) {
+        ArrayList<com.pokesoft.Zapas> returnValue = new ArrayList<>();
+
         By sportBy = new By.ByClassName("o-superSportRow__header");
         WebElement sportElement = element.findElement(sportBy);
         String sport = sportElement.getText();
@@ -42,11 +45,16 @@ public class Main {
         By zapasyBy = new By.ByClassName("o-superSportRow__body");
         WebElement zapasyElement = element.findElement(zapasyBy);
 
-        By zapasNeboLigaBy = new By.ByXPath("//div[@class = 'o-competitionRow' or @class = 'o-matchRow']");
+        System.out.println(zapasyElement.getText());
+
+        By zapasNeboLigaBy = new By.ByXPath(".//div[@class = 'o-competitionRow' or @class = 'o-matchRow']");
         ArrayList<WebElement> zapasyAligyElements = (ArrayList<WebElement>) zapasyElement.findElements(zapasNeboLigaBy);
+
         String liga = "";
         for (WebElement zalElement : zapasyAligyElements) {
-            String classString = zalElement.getAttribute("class");
+            String e = zalElement.getText();
+            System.out.println(e);
+/*            String classString = zalElement.getAttribute("class");
             if (classString.equals("o-competitionRow")) {
                 liga = zalElement.findElement(new By.ByClassName("o-competitionRow__left")).getText();
                 System.out.println(liga);
@@ -55,7 +63,7 @@ public class Main {
                 Zapas zapas = new Zapas();
                 String zapasJmeno = zalElement.findElement(new By.ByClassName("o-matchRow__leftSide")).getText();
 
-                System.out.println(zapasJmeno);
+                System.out.println(sport + " " + liga + " " + zapasJmeno);
                 zapas.setZapas(zapasJmeno);
 
                 WebElement kurzyElement = zalElement.findElement(new By.ByClassName("o-matchRow__rightSideInner"));
@@ -84,7 +92,7 @@ public class Main {
                     zapas.setSport(sport);
                     returnValue.add(zapas);
                 }
-            }
+            }*/
         }
         return returnValue;
     }
