@@ -1,10 +1,13 @@
 package com.pokesoft;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -12,8 +15,11 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Main {
+    public static Config config;
 
     public static void main(String[] args) throws IOException, InterruptedException {
+        Gson gson = new Gson();
+        config = gson.fromJson(new JsonReader(new FileReader(args[0])), Config.class);
         System.setProperty("webdriver.gecko.driver", "/home/daniel/IdeaProjects/milionar/lib/selenium/geckodriver");
         WebDriver driver = new FirefoxDriver();
 
@@ -28,7 +34,11 @@ public class Main {
         for (WebElement element : webElements) {
             String e = element.getText();
             zapasy.addAll(parseSportElement(element));
-            System.out.println(zapasy);
+        }
+
+        for(Zapas zapas : zapasy) {
+            String zapasJson = gson.toJson(zapas, Zapas.class);
+            System.out.println(zapasJson);
         }
 
 
@@ -52,9 +62,7 @@ public class Main {
 
         String liga = "";
         for (WebElement zalElement : zapasyAligyElements) {
-            String e = zalElement.getText();
-            System.out.println(e);
-/*            String classString = zalElement.getAttribute("class");
+            String classString = zalElement.getAttribute("class");
             if (classString.equals("o-competitionRow")) {
                 liga = zalElement.findElement(new By.ByClassName("o-competitionRow__left")).getText();
                 System.out.println(liga);
@@ -92,7 +100,7 @@ public class Main {
                     zapas.setSport(sport);
                     returnValue.add(zapas);
                 }
-            }*/
+            }
         }
         return returnValue;
     }
