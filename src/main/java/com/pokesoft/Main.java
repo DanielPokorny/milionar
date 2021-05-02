@@ -23,28 +23,34 @@ public class Main {
         System.setProperty("webdriver.gecko.driver", "/home/daniel/IdeaProjects/milionar/lib/selenium/geckodriver");
         WebDriver driver = new FirefoxDriver();
 
-        String baseUrl = "https://www.tipsport.cz/kurzy/zitra?limit=500";
-
+//nabidky
+        String baseUrl = "https://www.tipsport.cz/kurzy/zitra?limit=125";
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
-        ArrayList<com.pokesoft.Zapas> zapasy = new ArrayList<>();
+        ArrayList<com.pokesoft.Zapas> nabidky = new ArrayList<>();
         By sportClass = new By.ByClassName("o-superSportRow");
         ArrayList<WebElement> webElements = (ArrayList<WebElement>) driver.findElements(sportClass);
         for (WebElement element : webElements) {
-            String e = element.getText();
-            zapasy.addAll(parseSportElement(element));
+            nabidky.addAll(parseSportElement(element));
         }
 
-        for(Zapas zapas : zapasy) {
+        for(Zapas zapas : nabidky) {
             String zapasJson = gson.toJson(zapas, Zapas.class);
             System.out.println(zapasJson);
         }
 
 // vysledky
-        baseUrl = "https://www.tipsport.cz/vysledky?timeFilter=form.period.today.yesterday&limit=675";
-
+        baseUrl = "https://www.tipsport.cz/vysledky?timeFilter=form.period.today.yesterday&limit=125";
         driver.get(baseUrl);
+
+        sportClass = new By.ByClassName("o-superSportRow");
+        webElements = (ArrayList<WebElement>) driver.findElements(sportClass);
+        ArrayList<com.pokesoft.Zapas> vysledky = new ArrayList<>();
+
+        for (WebElement element : webElements) {
+            vysledky.addAll(parseSportElement(element));
+        }
 
         driver.close();
     }
