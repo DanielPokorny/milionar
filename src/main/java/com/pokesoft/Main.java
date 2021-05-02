@@ -41,6 +41,10 @@ public class Main {
             System.out.println(zapasJson);
         }
 
+// vysledky
+        baseUrl = "https://www.tipsport.cz/vysledky?timeFilter=form.period.today.yesterday&limit=675";
+
+        driver.get(baseUrl);
 
         driver.close();
     }
@@ -55,8 +59,6 @@ public class Main {
         By zapasyBy = new By.ByClassName("o-superSportRow__body");
         WebElement zapasyElement = element.findElement(zapasyBy);
 
-        System.out.println(zapasyElement.getText());
-
         By zapasNeboLigaBy = new By.ByXPath(".//div[@class = 'o-competitionRow' or @class = 'o-matchRow']");
         ArrayList<WebElement> zapasyAligyElements = (ArrayList<WebElement>) zapasyElement.findElements(zapasNeboLigaBy);
 
@@ -65,13 +67,11 @@ public class Main {
             String classString = zalElement.getAttribute("class");
             if (classString.equals("o-competitionRow")) {
                 liga = zalElement.findElement(new By.ByClassName("o-competitionRow__left")).getText();
-                System.out.println(liga);
             }
             if (classString.equals("o-matchRow")) {
                 Zapas zapas = new Zapas();
                 String zapasJmeno = zalElement.findElement(new By.ByClassName("o-matchRow__leftSide")).getText();
 
-                System.out.println(sport + " " + liga + " " + zapasJmeno);
                 zapas.setZapas(zapasJmeno);
 
                 WebElement kurzyElement = zalElement.findElement(new By.ByClassName("o-matchRow__rightSideInner"));
@@ -99,6 +99,7 @@ public class Main {
                     zapas.setLiga(liga);
                     zapas.setSport(sport);
                     returnValue.add(zapas);
+                    System.out.println(sport + " " + liga + " " + zapasJmeno);
                 }
             }
         }
