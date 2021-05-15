@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 
@@ -31,14 +32,11 @@ public class Main {
         ArrayList<com.pokesoft.Zapas> nabidky = new ArrayList<>();
         By sportClass = new By.ByClassName("o-superSportRow");
         ArrayList<WebElement> webElements = (ArrayList<WebElement>) driver.findElements(sportClass);
+        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         for (WebElement element : webElements) {
             nabidky.addAll(parseSportElement(element));
         }
-
-        for(Zapas zapas : nabidky) {
-            String zapasJson = gson.toJson(zapas, Zapas.class);
-            System.out.println(zapasJson);
-        }
+        driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 
 // vysledky
         baseUrl = "https://www.tipsport.cz/vysledky?timeFilter=form.period.today.yesterday&limit=125";
@@ -48,6 +46,7 @@ public class Main {
         webElements = (ArrayList<WebElement>) driver.findElements(sportClass);
         ArrayList<com.pokesoft.Zapas> vysledky = new ArrayList<>();
 
+        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         for (WebElement element : webElements) {
             vysledky.addAll(parseSportElement(element));
         }
@@ -73,6 +72,9 @@ public class Main {
             String classString = zalElement.getAttribute("class");
             if (classString.equals("o-competitionRow")) {
                 liga = zalElement.findElement(new By.ByClassName("o-competitionRow__left")).getText();
+                if(liga.contains("\n")) {
+                    liga = liga.substring(0, liga.indexOf("\n"));
+                }
             }
             if (classString.equals("o-matchRow")) {
                 Zapas zapas = new Zapas();
@@ -104,8 +106,19 @@ public class Main {
                     zapas.setDatum(datum);
                     zapas.setLiga(liga);
                     zapas.setSport(sport);
+
+                    WebElement resultElement = null;
+                    try {
+                        resultElement = zalElement.findElement(new By.ByXPath(".//div[@class = 'o-matchRow__result']"));
+                    } catch (Exception e) {
+
+                    }
+                    String resultString = "";
+                    if(resultElement != null) {
+                        resultString = resultElement.getText();
+                    }
                     returnValue.add(zapas);
-                    System.out.println(sport + " " + liga + " " + zapasJmeno);
+                    System.out.println(sport + " " + liga + " " + zapasJmeno + " " + resultString);
                 }
             }
         }
