@@ -116,9 +116,21 @@ public class Main {
                     String resultString = "";
                     if(resultElement != null) {
                         resultString = resultElement.getText();
+                        if(resultString.contains(" ")) {
+                            resultString = resultString.substring(0, resultString.indexOf(" "));
+                        }
+                        if(resultString.contains(":")) {
+                            String[] results = resultString.split(":");
+                            String domaciString = results[0];
+                            String hosteString = results[1];
+                            zapas.setHoste(Integer.valueOf(hosteString));
+                            zapas.setDomaci(Integer.valueOf(domaciString));
+                            System.out.print(domaciString + ":" + hosteString + ">");
+                        }
                     }
+
                     returnValue.add(zapas);
-                    System.out.println(sport + " " + liga + " " + zapasJmeno + " " + resultString);
+                    System.out.println(sport + " " + liga + " " + zapasJmeno + " ");
                 }
             }
         }
