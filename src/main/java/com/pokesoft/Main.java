@@ -9,13 +9,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
-
 public class Main {
+
     public static Config config;
 
     public static void main(String[] args) throws IOException, InterruptedException {
@@ -50,10 +50,76 @@ public class Main {
         for (WebElement element : webElements) {
             vysledky.addAll(parseSportElement(element));
         }
-
         driver.close();
-    }
 
+//zapis do DB
+        String url = "jdbc:postgresql://10.0.1.43/tipsport";
+        String user = "tipsport";
+        String password = "heslo";
+
+        /**
+         * Connect to the PostgreSQL database
+         *
+         * @return a Connection object
+         */
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(url, user, password);
+            System.out.println("Connected to the PostgreSQL server successfully.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        Statement stmt = null;
+        try {
+            stmt = conn.createStatement();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        Zapas v = vysledky.get(0);
+
+
+        String query = "SELECT * FROM vysledky WHERE " +
+                "zapas = '" + v.getZapas() + "'" +
+                " AND datum = '" + v.getDatum() + "'";
+        System.out.println(query);
+        Boolean zapasVDB = false;
+        ResultSet rs;
+        try {
+            rs = stmt.executeQuery(query);
+            if(rs.next()) {
+                zapasVDB = true;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        if(!zapasVDB) {
+            String insertString = "INSERT INTO vysledky (liga, sport, datum, zapas, jedna, jednanula, nula, nuladva, " +
+                    "dva, domaci, hoste) " +
+                    "VALUES (" +
+                    "'" + v.getLiga() + "', " +
+                    "'" + v.getSport() + "', " +
+                    "'" + v.getDatum() + "', " +
+                    "'" + v.getZapas() + "', " +
+                    v.getKurz1().toString() + ", " +
+                    v.getKurz10().toString() + ", " +
+                    v.getKurz0().toString() + ", " +
+                    v.getKurz02().toString() + ", " +
+                    v.getKurz2().toString() + ", " +
+                    v.getDomaci().toString() + ", " +
+                    v.getHoste().toString() + ")";
+            try {
+                stmt.executeUpdate(insertString);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            System.out.println(insertString);
+        }
+
+    }
+    
     public static Collection<? extends com.pokesoft.Zapas> parseSportElement(WebElement element) {
         ArrayList<com.pokesoft.Zapas> returnValue = new ArrayList<>();
 
