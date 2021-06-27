@@ -120,27 +120,27 @@ public class Main {
 
                 float minKurz = Math.min(z.getKurz0(), Math.min(z.getKurz1(), z.getKurz2()));
 
-                if(profit1 > 1 && z.getKurz1() == minKurz) {
+                if (profit1 > 1 && z.getKurz1() == minKurz) {
                     zapasProfitList.add(new ZapasProfit(z, profit1, 1));
                 }
-                if(profit0 > 1 && z.getKurz0() == minKurz) {
+                if (profit0 > 1 && z.getKurz0() == minKurz) {
                     zapasProfitList.add(new ZapasProfit(z, profit0, 0));
                 }
-                if(profit2 > 1 && z.getKurz2() == minKurz) {
+                if (profit2 > 1 && z.getKurz2() == minKurz) {
                     zapasProfitList.add(new ZapasProfit(z, profit2, 2));
                 }
             }
         }
         Collections.sort(zapasProfitList);
-        for(ZapasProfit zp:zapasProfitList) {
+        for (ZapasProfit zp : zapasProfitList) {
             System.out.println(zp.getZapas().getLiga() + " " + zp.getZapas().getZapas() + " " + zp.getZapas().getDatum());
-            if(zp.getResult() == 0) {
+            if (zp.getResult() == 0) {
                 System.out.println("0 > " + zp.getZapas().getKurz0() + " " + zp.profit);
             }
-            if(zp.getResult() == 1) {
+            if (zp.getResult() == 1) {
                 System.out.println("1 > " + zp.getZapas().getKurz1() + " " + zp.profit);
             }
-            if(zp.getResult() == 2) {
+            if (zp.getResult() == 2) {
                 System.out.println("2 > " + zp.getZapas().getKurz2() + " " + zp.profit);
             }
         }
@@ -276,7 +276,7 @@ public class Main {
 
                 WebElement kurzyElement = zalElement.findElement(new By.ByClassName("o-matchRow__rightSideInner"));
                 String datum = kurzyElement.findElement(new By.ByClassName("o-matchRow__dateClosed")).getText();
-                if(datum.length() == 14) {
+                if (datum.length() == 14) {
                     datum = datum.substring(0, 9) + " " + datum.substring(9);
                 } else {
                     datum = datum.substring(0, 10) + " " + datum.substring(10);
@@ -365,7 +365,7 @@ public class Main {
         }
     }
 
-    public static class ZapasProfit implements Comparable{
+    public static class ZapasProfit implements Comparable {
         private Zapas zapas;
         private float profit;
         private int result;
@@ -406,31 +406,31 @@ public class Main {
             float zpKurz = 0;
             float myKurz = 0;
 
-            if(zp.getResult() == 0 ){
+            if (zp.getResult() == 0) {
                 zpKurz = zp.getZapas().getKurz0();
             }
-            if(zp.getResult() == 1 ){
+            if (zp.getResult() == 1) {
                 zpKurz = zp.getZapas().getKurz1();
             }
-            if(zp.getResult() == 2 ){
+            if (zp.getResult() == 2) {
                 zpKurz = zp.getZapas().getKurz2();
             }
 
-            if(this.getResult() == 0 ){
+            if (this.getResult() == 0) {
                 myKurz = this.getZapas().getKurz0();
             }
-            if(this.getResult() == 1 ){
+            if (this.getResult() == 1) {
                 myKurz = this.getZapas().getKurz1();
             }
-            if(this.getResult() == 2 ){
+            if (this.getResult() == 2) {
                 myKurz = this.getZapas().getKurz2();
             }
 
             int returnValue = 0;
-            if(myKurz > zpKurz) {
+            if (myKurz > zpKurz) {
                 returnValue = 1;
             }
-            if(myKurz < zpKurz) {
+            if (myKurz < zpKurz) {
                 returnValue = -1;
             }
 
