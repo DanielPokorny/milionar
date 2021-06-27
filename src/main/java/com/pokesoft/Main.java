@@ -2,6 +2,7 @@ package com.pokesoft;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+import org.jetbrains.annotations.NotNull;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -75,6 +76,8 @@ public class Main {
             throwables.printStackTrace();
         }
 
+        ArrayList<ZapasProfit> zapasProfitList = new ArrayList<>();
+
         for (Zapas z : nabidky) {
             String queryString = "SELECT * FROM vysledky WHERE " +
                     "sport = '" + z.getSport() + "' AND " +
@@ -98,16 +101,34 @@ public class Main {
                     result = 2;
                 }
 
-                if (points.size() == 5) {
+                if (points.size() == 10) {
                     replaceMax(points, delta, result);
                 } else {
                     points.add(new Point(delta, result));
                 }
             }
 
-            float probability = coutProbability(points, 1);
+            if (points.size() == 10) {
+                float probability1 = coutProbability(points, 1);
+                float probability0 = coutProbability(points, 0);
+                float probability2 = coutProbability(points, 2);
 
-            System.out.println(points);
+                float profit1 = probability1 * z.getKurz1();
+                float profit0 = probability0 * z.getKurz0();
+                float profit2 = probability2 * z.getKurz2();
+
+                float minKurz = Math.min(z.getKurz0(), Math.min(z.getKurz1(), z.getKurz2()));
+
+                if(profit1 > 1 && z.getKurz1() == minKurz) {
+                    zapasProfitList.add(new ZapasProfit(z, profit1, 1));
+                }
+                if(profit0 > 1 && z.getKurz0() == minKurz) {
+                    zapasProfitList.add(new ZapasProfit(z, profit0, 0));
+                }
+                if(profit2 > 1 && z.getKurz2() == minKurz) {
+                    zapasProfitList.add(new ZapasProfit(z, profit2, 2));
+                }
+            }
         }
     }
 
@@ -322,6 +343,41 @@ public class Main {
 
         public void setResult(Integer result) {
             this.result = result;
+        }
+    }
+
+    public static class ZapasProfit implements Comparable{
+        private Zapas zapas;
+        private float profit;
+        private int result;
+
+        public ZapasProfit(Zapas zapas, float profit, int result) {
+            this.zapas = zapas;
+            this.profit = profit;
+            this.result = result;
+        }
+
+        public Zapas getZapas() {
+            return zapas;
+        }
+
+        public void setZapas(Zapas zapas) {
+            this.zapas = zapas;
+        }
+
+        public float getProfit() {
+            return profit;
+        }
+
+        public void setProfit(float profit) {
+            this.profit = profit;
+        }
+
+        @Override
+        public int compareTo(@NotNull Object o) {
+            ZapasProfit zp = (ZapasProfit) o;
+            if()
+            return 0;
         }
     }
 }
