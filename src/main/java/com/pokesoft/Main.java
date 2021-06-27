@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
@@ -128,6 +129,19 @@ public class Main {
                 if(profit2 > 1 && z.getKurz2() == minKurz) {
                     zapasProfitList.add(new ZapasProfit(z, profit2, 2));
                 }
+            }
+        }
+        Collections.sort(zapasProfitList);
+        for(ZapasProfit zp:zapasProfitList) {
+            System.out.println(zp.getZapas().getLiga() + " " + zp.getZapas().getZapas() + " " + zp.getZapas().getDatum());
+            if(zp.getResult() == 0) {
+                System.out.println("0 > " + zp.getZapas().getKurz0() + " " + zp.profit);
+            }
+            if(zp.getResult() == 1) {
+                System.out.println("1 > " + zp.getZapas().getKurz1() + " " + zp.profit);
+            }
+            if(zp.getResult() == 2) {
+                System.out.println("2 > " + zp.getZapas().getKurz2() + " " + zp.profit);
             }
         }
     }
@@ -262,6 +276,11 @@ public class Main {
 
                 WebElement kurzyElement = zalElement.findElement(new By.ByClassName("o-matchRow__rightSideInner"));
                 String datum = kurzyElement.findElement(new By.ByClassName("o-matchRow__dateClosed")).getText();
+                if(datum.length() == 14) {
+                    datum = datum.substring(0, 9) + " " + datum.substring(9);
+                } else {
+                    datum = datum.substring(0, 10) + " " + datum.substring(10);
+                }
 
                 ArrayList<WebElement> kurzyElementList = (ArrayList<WebElement>) kurzyElement.findElements(new By.ByClassName("btnRate"));
                 if (kurzyElementList.size() == 5) {
@@ -351,6 +370,14 @@ public class Main {
         private float profit;
         private int result;
 
+        public int getResult() {
+            return result;
+        }
+
+        public void setResult(int result) {
+            this.result = result;
+        }
+
         public ZapasProfit(Zapas zapas, float profit, int result) {
             this.zapas = zapas;
             this.profit = profit;
@@ -376,8 +403,38 @@ public class Main {
         @Override
         public int compareTo(@NotNull Object o) {
             ZapasProfit zp = (ZapasProfit) o;
-            if()
-            return 0;
+            float zpKurz = 0;
+            float myKurz = 0;
+
+            if(zp.getResult() == 0 ){
+                zpKurz = zp.getZapas().getKurz0();
+            }
+            if(zp.getResult() == 1 ){
+                zpKurz = zp.getZapas().getKurz1();
+            }
+            if(zp.getResult() == 2 ){
+                zpKurz = zp.getZapas().getKurz2();
+            }
+
+            if(this.getResult() == 0 ){
+                myKurz = this.getZapas().getKurz0();
+            }
+            if(this.getResult() == 1 ){
+                myKurz = this.getZapas().getKurz1();
+            }
+            if(this.getResult() == 2 ){
+                myKurz = this.getZapas().getKurz2();
+            }
+
+            int returnValue = 0;
+            if(myKurz > zpKurz) {
+                returnValue = 1;
+            }
+            if(myKurz < zpKurz) {
+                returnValue = -1;
+            }
+
+            return returnValue;
         }
     }
 }
