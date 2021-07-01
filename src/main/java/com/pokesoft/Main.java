@@ -278,8 +278,10 @@ public class Main {
                 String datum = kurzyElement.findElement(new By.ByClassName("o-matchRow__dateClosed")).getText();
                 if (datum.length() == 14) {
                     datum = datum.substring(0, 9) + " " + datum.substring(9);
-                } else {
+                } else if (datum.length() == 15){
                     datum = datum.substring(0, 10) + " " + datum.substring(10);
+                } else {
+                    datum = datum.substring(0, 8) + " " + datum.substring(8);
                 }
 
                 ArrayList<WebElement> kurzyElementList = (ArrayList<WebElement>) kurzyElement.findElements(new By.ByClassName("btnRate"));
