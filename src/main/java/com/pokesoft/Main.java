@@ -127,24 +127,21 @@ public class Main {
                 float profit02 = probability02 * z.getKurz02();
                 float profit2 = probability2 * z.getKurz2();
 
-                float minKurz = Math.min(z.getKurz1(), z.getKurz10());
-                minKurz = Math.min(minKurz, z.getKurz0());
-                minKurz = Math.min(minKurz, z.getKurz02());
-                minKurz = Math.min(minKurz, z.getKurz2());
+                float minProfit = 1.1f;
 
-                if (profit1 > 1 && z.getKurz1() == minKurz) {
+                if (profit1 > minProfit) {
                     zapasProfitList.add(new ZapasProfit(z, profit1, "1"));
                 }
-                if (profit10 > 1 && z.getKurz10() == minKurz) {
+                if (profit10 > minProfit) {
                     zapasProfitList.add(new ZapasProfit(z, profit10, "10"));
                 }
-                if (profit0 > 1 && z.getKurz0() == minKurz) {
+                if (profit0 > minProfit) {
                     zapasProfitList.add(new ZapasProfit(z, profit0, "0"));
                 }
-                if (profit02 > 1 && z.getKurz02() == minKurz) {
+                if (profit02 > minProfit) {
                     zapasProfitList.add(new ZapasProfit(z, profit02, "02"));
                 }
-                if (profit2 > 1 && z.getKurz2() == minKurz) {
+                if (profit2 > minProfit) {
                     zapasProfitList.add(new ZapasProfit(z, profit2, "2"));
                 }
             }
@@ -429,7 +426,7 @@ public class Main {
         @Override
         public int compareTo(@NotNull Object o) {
             ZapasProfit zp = (ZapasProfit) o;
-            float zpKurz = 0;
+/*          float zpKurz = 0;
             float myKurz = 0;
 
             if (zp.getResult().equals("1")) {
@@ -463,12 +460,13 @@ public class Main {
             if (this.getResult().equals("2")) {
                 myKurz = this.getZapas().getKurz2();
             }
+*/
 
             int returnValue = 0;
-            if (myKurz > zpKurz) {
+            if (zp.profit > this.profit) {
                 returnValue = 1;
             }
-            if (myKurz < zpKurz) {
+            if (zp.profit < this.profit) {
                 returnValue = -1;
             }
 
