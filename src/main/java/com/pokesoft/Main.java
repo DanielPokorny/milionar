@@ -18,6 +18,10 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /*
+    Verze 1.3
+    - minimalni profit 1.1
+    - vyber ze vsech kurzu, nejen nejmensiho
+
     Verze 1.2
     - pridan nahodny pocet zapasu
     - pridany kurzy 10 a 02
