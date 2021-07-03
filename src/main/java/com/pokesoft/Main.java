@@ -16,9 +16,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
-//todo nacitani nahodneho poctu zapasu
 //todo tipy i pro a 10 a 02
-//todo zapasy jen na zitra
 
 public class Main {
 
