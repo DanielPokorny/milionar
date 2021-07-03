@@ -132,13 +132,13 @@ public class Main {
                 if (profit1 > 1 && z.getKurz1() == minKurz) {
                     zapasProfitList.add(new ZapasProfit(z, profit1, "1"));
                 }
-                if (profit1 > 1 && z.getKurz10() == minKurz) {
+                if (profit10 > 1 && z.getKurz10() == minKurz) {
                     zapasProfitList.add(new ZapasProfit(z, profit10, "10"));
                 }
                 if (profit0 > 1 && z.getKurz0() == minKurz) {
                     zapasProfitList.add(new ZapasProfit(z, profit0, "0"));
                 }
-                if (profit1 > 1 && z.getKurz02() == minKurz) {
+                if (profit02 > 1 && z.getKurz02() == minKurz) {
                     zapasProfitList.add(new ZapasProfit(z, profit02, "02"));
                 }
                 if (profit2 > 1 && z.getKurz2() == minKurz) {
