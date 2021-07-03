@@ -16,8 +16,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
-//todo zapasy jen na zitra
-
 public class Main {
 
     public static Config config;
