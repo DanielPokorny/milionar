@@ -46,7 +46,7 @@ public class Main {
         driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 
 // vysledky
-        numberOfMatches = Integer.toString(rng.ints(5000, 10000).findFirst().getAsInt());
+        numberOfMatches = Integer.toString(4975 + rng.ints(0, 100).findFirst().getAsInt() * 50);
         baseUrl = "https://www.tipsport.cz/vysledky?timeFilter=form.period.today.yesterday&limit=" + numberOfMatches;
         driver.get(baseUrl);
 
