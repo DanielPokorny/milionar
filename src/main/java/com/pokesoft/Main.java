@@ -14,6 +14,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 //todo nacitani nahodneho poctu zapasu
@@ -28,8 +29,10 @@ public class Main {
         System.setProperty("webdriver.gecko.driver", "/home/daniel/IdeaProjects/milionar/lib/selenium/geckodriver");
         WebDriver driver = new FirefoxDriver();
 
+        Random rng = new Random();
 //nabidky
-        String baseUrl = "https://www.tipsport.cz/kurzy/zitra?limit=10000";
+        String numberOfMatches = Integer.toString(4975 + rng.ints(0, 100).findFirst().getAsInt() * 50);
+        String baseUrl = "https://www.tipsport.cz/kurzy/zitra?limit=" + numberOfMatches;
         driver.get(baseUrl);
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
@@ -43,7 +46,8 @@ public class Main {
         driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 
 // vysledky
-        baseUrl = "https://www.tipsport.cz/vysledky?timeFilter=form.period.today.yesterday&limit=10000";
+        numberOfMatches = Integer.toString(rng.ints(5000, 10000).findFirst().getAsInt());
+        baseUrl = "https://www.tipsport.cz/vysledky?timeFilter=form.period.today.yesterday&limit=" + numberOfMatches;
         driver.get(baseUrl);
 
         sportClass = new By.ByClassName("o-superSportRow");
@@ -280,7 +284,7 @@ public class Main {
                 String datum = kurzyElement.findElement(new By.ByClassName("o-matchRow__dateClosed")).getText();
                 if (datum.length() == 14) {
                     datum = datum.substring(0, 9) + " " + datum.substring(9);
-                } else if (datum.length() == 15){
+                } else if (datum.length() == 15) {
                     datum = datum.substring(0, 10) + " " + datum.substring(10);
                 } else {
                     datum = datum.substring(0, 8) + " " + datum.substring(8);
