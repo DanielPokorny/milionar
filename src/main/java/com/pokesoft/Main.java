@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+
 public class Main {
 
     public static Config config;
@@ -98,12 +99,12 @@ public class Main {
                 float delta02 = z.getKurz02() - rs.getFloat("nuladva");
                 float delta2 = z.getKurz2() - rs.getFloat("dva");
                 Float delta = (float) Math.sqrt(delta1 * delta1 + delta10 * delta10 + delta0 * delta0 + delta02 * delta02 + delta2 * delta2);
-                Integer result = 0;
+                String result = "0";
                 if (rs.getInt("domaci") > rs.getInt("hoste")) {
-                    result = 1;
+                    result = "1";
                 }
                 if (rs.getInt("domaci") < rs.getInt("hoste")) {
-                    result = 2;
+                    result = "2";
                 }
 
                 if (points.size() == 10) {
@@ -114,49 +115,68 @@ public class Main {
             }
 
             if (points.size() == 10) {
-                float probability1 = coutProbability(points, 1);
-                float probability0 = coutProbability(points, 0);
-                float probability2 = coutProbability(points, 2);
+                float probability1 = coutProbability(points, "1");
+                float probability10 = coutProbability(points, "10");
+                float probability0 = coutProbability(points, "0");
+                float probability02 = coutProbability(points, "02");
+                float probability2 = coutProbability(points, "2");
 
                 float profit1 = probability1 * z.getKurz1();
+                float profit10 = probability10 * z.getKurz10();
                 float profit0 = probability0 * z.getKurz0();
+                float profit02 = probability02 * z.getKurz02();
                 float profit2 = probability2 * z.getKurz2();
 
-                float minKurz = Math.min(z.getKurz0(), Math.min(z.getKurz1(), z.getKurz2()));
+                float minKurz = Math.min(z.getKurz1(), z.getKurz10());
+                minKurz = Math.min(minKurz, z.getKurz0());
+                minKurz = Math.min(minKurz, z.getKurz02());
+                minKurz = Math.min(minKurz, z.getKurz2());
 
                 if (profit1 > 1 && z.getKurz1() == minKurz) {
-                    zapasProfitList.add(new ZapasProfit(z, profit1, 1));
+                    zapasProfitList.add(new ZapasProfit(z, profit1, "1"));
+                }
+                if (profit10 > 1 && z.getKurz10() == minKurz) {
+                    zapasProfitList.add(new ZapasProfit(z, profit10, "10"));
                 }
                 if (profit0 > 1 && z.getKurz0() == minKurz) {
-                    zapasProfitList.add(new ZapasProfit(z, profit0, 0));
+                    zapasProfitList.add(new ZapasProfit(z, profit0, "0"));
+                }
+                if (profit02 > 1 && z.getKurz02() == minKurz) {
+                    zapasProfitList.add(new ZapasProfit(z, profit02, "02"));
                 }
                 if (profit2 > 1 && z.getKurz2() == minKurz) {
-                    zapasProfitList.add(new ZapasProfit(z, profit2, 2));
+                    zapasProfitList.add(new ZapasProfit(z, profit2, "2"));
                 }
             }
         }
         Collections.sort(zapasProfitList);
         for (ZapasProfit zp : zapasProfitList) {
             System.out.println(zp.getZapas().getLiga() + " " + zp.getZapas().getZapas() + " " + zp.getZapas().getDatum());
-            if (zp.getResult() == 0) {
-                System.out.println("0 > " + zp.getZapas().getKurz0() + " " + zp.profit);
-            }
-            if (zp.getResult() == 1) {
+            if (zp.getResult().equals("1")) {
                 System.out.println("1 > " + zp.getZapas().getKurz1() + " " + zp.profit);
             }
-            if (zp.getResult() == 2) {
+            if (zp.getResult().equals("10")) {
+                System.out.println("10 > " + zp.getZapas().getKurz10() + " " + zp.profit);
+            }
+            if (zp.getResult().equals("0")) {
+                System.out.println("0 > " + zp.getZapas().getKurz0() + " " + zp.profit);
+            }
+            if (zp.getResult().equals("02")) {
+                System.out.println("02 > " + zp.getZapas().getKurz02() + " " + zp.profit);
+            }
+            if (zp.getResult().equals("2")) {
                 System.out.println("2 > " + zp.getZapas().getKurz2() + " " + zp.profit);
             }
         }
     }
 
-    private static float coutProbability(ArrayList<Point> points, int result) {
+    private static float coutProbability(ArrayList<Point> points, String result) {
         float returnValue;
         float totalDelta = 0;
         float totalScore = 0;
         for (Point p : points) {
             totalDelta += 1 / (1 + p.getDelta());
-            if (p.getResult() == result) {
+            if (result.contains(p.getResult())) {
                 totalScore += 1 / (1 + p.getDelta());
             }
         }
@@ -164,7 +184,7 @@ public class Main {
         return returnValue;
     }
 
-    private static void replaceMax(ArrayList<Point> points, Float delta, Integer result) {
+    private static void replaceMax(ArrayList<Point> points, Float delta, String result) {
         float m = points.get(0).getDelta();
         int index = 0;
 
@@ -282,7 +302,7 @@ public class Main {
                 String datum = kurzyElement.findElement(new By.ByClassName("o-matchRow__dateClosed")).getText();
                 if (datum.length() == 14) {
                     datum = datum.substring(0, 9) + " " + datum.substring(9);
-                } else if (datum.length() == 15) {
+                } else if (datum.length() == 15){
                     datum = datum.substring(0, 10) + " " + datum.substring(10);
                 } else {
                     datum = datum.substring(0, 8) + " " + datum.substring(8);
@@ -347,9 +367,9 @@ public class Main {
 
     public static class Point {
         private Float delta;
-        private Integer result;
+        private String result;
 
-        public Point(Float delta, Integer result) {
+        public Point(Float delta, String result) {
             this.delta = delta;
             this.result = result;
         }
@@ -362,11 +382,11 @@ public class Main {
             this.delta = delta;
         }
 
-        public Integer getResult() {
+        public String getResult() {
             return result;
         }
 
-        public void setResult(Integer result) {
+        public void setResult(String result) {
             this.result = result;
         }
     }
@@ -374,17 +394,17 @@ public class Main {
     public static class ZapasProfit implements Comparable {
         private Zapas zapas;
         private float profit;
-        private int result;
+        private String result;
 
-        public int getResult() {
+        public String getResult() {
             return result;
         }
 
-        public void setResult(int result) {
+        public void setResult(String result) {
             this.result = result;
         }
 
-        public ZapasProfit(Zapas zapas, float profit, int result) {
+        public ZapasProfit(Zapas zapas, float profit, String result) {
             this.zapas = zapas;
             this.profit = profit;
             this.result = result;
@@ -412,23 +432,35 @@ public class Main {
             float zpKurz = 0;
             float myKurz = 0;
 
-            if (zp.getResult() == 0) {
-                zpKurz = zp.getZapas().getKurz0();
-            }
-            if (zp.getResult() == 1) {
+            if (zp.getResult().equals("1")) {
                 zpKurz = zp.getZapas().getKurz1();
             }
-            if (zp.getResult() == 2) {
+            if (zp.getResult().equals("10")) {
+                zpKurz = zp.getZapas().getKurz10();
+            }
+            if (zp.getResult().equals("0")) {
+                zpKurz = zp.getZapas().getKurz0();
+            }
+            if (zp.getResult().equals("02")) {
+                zpKurz = zp.getZapas().getKurz02();
+            }
+            if (zp.getResult().equals("2")) {
                 zpKurz = zp.getZapas().getKurz2();
             }
 
-            if (this.getResult() == 0) {
-                myKurz = this.getZapas().getKurz0();
-            }
-            if (this.getResult() == 1) {
+            if (this.getResult().equals("1")) {
                 myKurz = this.getZapas().getKurz1();
             }
-            if (this.getResult() == 2) {
+            if (this.getResult().equals("10")) {
+                myKurz = this.getZapas().getKurz10();
+            }
+            if (this.getResult().equals("0")) {
+                myKurz = this.getZapas().getKurz0();
+            }
+            if (this.getResult().equals("02")) {
+                myKurz = this.getZapas().getKurz02();
+            }
+            if (this.getResult().equals("2")) {
                 myKurz = this.getZapas().getKurz2();
             }
 
