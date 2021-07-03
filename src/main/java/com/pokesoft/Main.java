@@ -17,6 +17,12 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+/*
+    Verze 1.2
+    - pridan nahodny pocet zapasu
+    - pridany kurzy 10 a 02
+ */
+
 
 public class Main {
 
