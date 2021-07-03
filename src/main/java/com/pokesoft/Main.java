@@ -17,8 +17,6 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-//todo nacitani nahodneho poctu zapasu
-
 public class Main {
 
     public static Config config;
