@@ -86,8 +86,8 @@ public class Main {
 
         for (Zapas z : nabidky) {
             String queryString = "SELECT * FROM vysledky WHERE " +
-                    "sport = '" + z.getSport() + "' AND " +
-                    "liga = '" + z.getLiga() + "'";
+                    "sport = '" + z.getSport().replace("'", "''") + "' AND " +
+                    "liga = '" + z.getLiga().replace("'", "''") + "'";
             ResultSet rs = stmt.executeQuery(queryString);
 
             ArrayList<Point> points = new ArrayList<>();
@@ -238,8 +238,8 @@ public class Main {
                     String insertString = "INSERT INTO vysledky (liga, sport, datum, zapas, jedna, jednanula, nula, nuladva, " +
                             "dva, domaci, hoste) " +
                             "VALUES (" +
-                            "'" + v.getLiga() + "', " +
-                            "'" + v.getSport() + "', " +
+                            "'" + v.getLiga().replace("'", "''") + "', " +
+                            "'" + v.getSport().replace("'", "''") + "', " +
                             "'" + v.getDatum() + "', " +
                             "'" + v.getZapas().replace("'", "''") + "', " +
                             v.getKurz1().toString() + ", " +
@@ -426,7 +426,7 @@ public class Main {
         @Override
         public int compareTo(@NotNull Object o) {
             ZapasProfit zp = (ZapasProfit) o;
-/*          float zpKurz = 0;
+            float zpKurz = 0;
             float myKurz = 0;
 
             if (zp.getResult().equals("1")) {
@@ -460,13 +460,18 @@ public class Main {
             if (this.getResult().equals("2")) {
                 myKurz = this.getZapas().getKurz2();
             }
-*/
 
             int returnValue = 0;
-            if (zp.profit > this.profit) {
+/*            if (zp.profit > this.profit) {
                 returnValue = 1;
             }
             if (zp.profit < this.profit) {
+                returnValue = -1;
+            }*/
+            if (zpKurz > myKurz) {
+                returnValue = 1;
+            }
+            if (zpKurz < myKurz) {
                 returnValue = -1;
             }
 
