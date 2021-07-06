@@ -220,7 +220,7 @@ public class Main {
         for (Zapas v : vysledky) {
             if (v.getHoste() != null && v.getDomaci() != null) {
                 String query = "SELECT * FROM vysledky WHERE " +
-                        "zapas = '" + v.getZapas() + "'" +
+                        "zapas = '" + v.getZapas().replace("'", "''") + "'" +
                         " AND datum = '" + v.getDatum() + "'";
                 System.out.println(query);
                 Boolean zapasVDB = false;
@@ -241,7 +241,7 @@ public class Main {
                             "'" + v.getLiga() + "', " +
                             "'" + v.getSport() + "', " +
                             "'" + v.getDatum() + "', " +
-                            "'" + v.getZapas() + "', " +
+                            "'" + v.getZapas().replace("'", "''") + "', " +
                             v.getKurz1().toString() + ", " +
                             v.getKurz10().toString() + ", " +
                             v.getKurz0().toString() + ", " +
