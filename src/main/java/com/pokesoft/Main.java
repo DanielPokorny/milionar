@@ -18,6 +18,10 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /*
+    Verze 1.4
+    - oprava zapisu do DB ' na ''
+    - zmena razeni podle profitu
+
     Verze 1.3
     - minimalni profit 1.1
     - vyber ze vsech kurzu, nejen nejmensiho
