@@ -18,6 +18,9 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /*
+    Verze 1.5
+    - razeni podle pravdepodobnosti a kurzu
+
     Verze 1.4
     - oprava zapisu do DB ' na ''
     - zmena razeni podle profitu
@@ -475,6 +478,10 @@ public class Main {
                 myKurz = this.getZapas().getKurz2();
             }
 
+            float myProb = this.profit / myKurz;
+            float zpProb = zp.profit / zpKurz;
+
+
             int returnValue = 0;
 /*            if (zp.profit > this.profit) {
                 returnValue = 1;
@@ -482,11 +489,31 @@ public class Main {
             if (zp.profit < this.profit) {
                 returnValue = -1;
             }*/
+
+/*
             if (zpKurz > myKurz) {
                 returnValue = 1;
             }
             if (zpKurz < myKurz) {
                 returnValue = -1;
+            }*/
+
+            if (zpProb > myProb) {
+                returnValue = 1;
+            }
+            if (zpKurz < myKurz) {
+                returnValue = -1;
+            }
+            if (zpProb == myProb) {
+                if (zpKurz > myKurz) {
+                    return 1;
+                }
+                if (zpKurz == myKurz) {
+                    return 0;
+                }
+                if (zpKurz < myKurz) {
+                    return -1;
+                }
             }
 
             return returnValue;
