@@ -18,6 +18,9 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /*
+    Verye 14.5.1
+    - opraveno razeni
+
     Verze 1.5
     - razeni podle pravdepodobnosti a kurzu
 
@@ -498,10 +501,10 @@ public class Main {
                 returnValue = -1;
             }*/
 
-            if (zpProb > myProb) {
+            if (zpProb < myProb) {
                 returnValue = 1;
             }
-            if (zpKurz < myKurz) {
+            if (zpProb > myProb) {
                 returnValue = -1;
             }
             if (zpProb == myProb) {
