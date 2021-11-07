@@ -18,7 +18,10 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /*
-    Verye 14.5.1
+    Verze 1.6
+    - minimalne 50 zapasu v lize a 20 okolnich bodu
+
+    Verze 1.5.1
     - opraveno razeni
 
     Verze 1.5
