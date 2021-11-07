@@ -18,6 +18,9 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /*
+    Verze 1.6.1
+    - oprava 20 okolnich bodu
+
     Verze 1.6
     - minimalne 50 zapasu v lize a 20 okolnich bodu
 
