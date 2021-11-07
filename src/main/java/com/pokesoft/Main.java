@@ -111,8 +111,10 @@ public class Main {
             ResultSet rs = stmt.executeQuery(queryString);
 
             ArrayList<Point> points = new ArrayList<>();
+            int totalResults = 0;
 
             while (rs.next()) {
+                totalResults++;
                 float delta1 = z.getKurz1() - rs.getFloat("jedna");
                 float delta10 = z.getKurz10() - rs.getFloat("jednanula");
                 float delta0 = z.getKurz0() - rs.getFloat("nula");
@@ -134,7 +136,7 @@ public class Main {
                 }
             }
 
-            if (points.size() == 10) {
+            if (points.size() == 20 && totalResults > 50) {
                 float probability1 = coutProbability(points, "1");
                 float probability10 = coutProbability(points, "10");
                 float probability0 = coutProbability(points, "0");
