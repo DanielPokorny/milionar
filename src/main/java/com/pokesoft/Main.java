@@ -132,7 +132,7 @@ public class Main {
                     result = "2";
                 }
 
-                if (points.size() == 10) {
+                if (points.size() == 20) {
                     replaceMax(points, delta, result);
                 } else {
                     points.add(new Point(delta, result));
